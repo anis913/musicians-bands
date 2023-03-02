@@ -37,4 +37,16 @@ describe('Band and Musician Models', () => {
         const foundBand2 = await Song.findAll();
         expect(foundBand2.getSongs().year).toBe(2020);
     })
+
+    test('Eager Loading', async () =>{
+       const foundBand3 = await Band.findAll({
+        include: [
+            { model: Musician, as: "Artist"},
+            { model: Song, as:'Songs'}
+        ]
+       });
+       expect(foundBand3.getMusicians().name).toBe('mozart')
+    })
+
+
 })
