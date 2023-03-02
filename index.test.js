@@ -22,4 +22,9 @@ describe('Band and Musician Models', () => {
         const testMusician = await Musician.create({ name: 'mozart', instrument: 'guitar' });
         expect(testMusician.name).toBe('mozart');
     })
+
+    test('Multiple musicians can be added to a Band', async () => {
+        const foundBand = await Band.findAll();
+        expect(foundBand.getMusicians().name).toBe('mozart');
+    })
 })
