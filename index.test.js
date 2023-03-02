@@ -1,6 +1,6 @@
 const { UPSERT } = require('sequelize/types/query-types');
 const {sequelize} = require('./db');
-const {Band, Musician} = require('./index')
+const {Band, Musician, Song} = require('./index')
 
 describe('Band and Musician Models', () => {
     /**
@@ -23,8 +23,18 @@ describe('Band and Musician Models', () => {
         expect(testMusician.name).toBe('mozart');
     })
 
+    test('can create a Song', async () => {
+        const testSong = await Song.create({ title: 'murda', year: 2020 });
+        expect(testMusician.title).toBe('murda');
+    })
+
     test('Multiple musicians can be added to a Band', async () => {
         const foundBand = await Band.findAll();
         expect(foundBand.getMusicians().name).toBe('mozart');
+    })
+
+    test('Multiple Bands can be added to a Song', async () => {
+        const foundBand2 = await Song.findAll();
+        expect(foundBand2.getSongs().year).toBe(2020);
     })
 })

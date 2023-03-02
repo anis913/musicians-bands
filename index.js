@@ -1,11 +1,17 @@
 const { BelongsTo, HasMany } = require('sequelize');
 const {Band} = require('./Band')
 const {Musician} = require('./Musician')
+const {Song} = require('./Song')
+
 
 Musician.BelongsTo(Band);
 Band.HasMany(Musician);
 
+Song.belongsToMany(Band, {through: 'song_tags'});
+Band.belongsToMany(Song, {through: 'band_tags'});
+
 module.exports = {
     Band,
-    Musician
+    Musician,
+    Song
 };
